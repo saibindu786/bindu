@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Operations</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 20px;
+}
+input, button {
+margin: 5px 0;
+}
+.result {
+margin-top: 10px;
+font-weight: bold;
+}
+</style>
+<script>
+// Function to calculate the factorial of a number
+function calculateFactorial(num) {
+if (num < 0) return 'Factorial is not defined for negative numbers.';
+if (num === 0 || num === 1) return 1;
+let factorial = 1;
+for (let i = 2; i <= num; i++) {
+factorial *= i;
+}
+return factorial;
+}
+// Function to generate the Fibonacci series up to a given number
+function generateFibonacci(num) {
+if (num <= 0) return 'Please enter a positive integer.';
+let fibSeries = [0, 1];
+while (true) {
+let nextTerm = fibSeries[fibSeries.length - 1] + fibSeries[fibSeries.length - 2];
+if (nextTerm > num) break;
+fibSeries.push(nextTerm);
+}
+return fibSeries.join(', ');
+}
+// Function to check if a number is prime
+function isPrime(num) {
+if (num <= 1) return false;
+for (let i = 2; i <= Math.sqrt(num); i++) {
+if (num % i === 0) return false;
+}
+return true;
+}
+// Function to list all prime numbers up to a given number
+function listPrimes(num) {
+if (num < 2) return 'No prime numbers available.';
+let primes = [];
+for (let i = 2; i <= num; i++) {
+if (isPrime(i)) primes.push(i);
+}
+return primes.join(', ');
+}
+// Function to check if a number is a palindrome
+function isPalindrome(num) {
+let str = num.toString();
+let reversedStr = str.split('').reverse().join('');
+return str === reversedStr;
+}
+// Function to handle button clicks and display results
+function performOperation(operation) {
+const input = document.getElementById('numberInput').value;
+const num = parseInt(input);
+if (isNaN(num)) {
+alert('Please enter a valid number.');
+return;
+}
+let result;
+switch (operation) {
+case 'factorial':
+result = `Factorial of ${num} is ${calculateFactorial(num)}.`;
+break;
+case 'fibonacci':
+result = `Fibonacci series up to ${num}: ${generateFibonacci(num)}.`;
+break;
+case 'primes':
+result = `Prime numbers up to ${num}: ${listPrimes(num)}.`;
+break;
+case 'palindrome':
+result = `${num} is ${isPalindrome(num) ? '' : 'not '}a palindrome.`;
+break;
+default:
+result = 'Invalid operation.';
+}
+document.getElementById('result').innerText = result;
+}
+</script>
+</head>
+<body>
+<h1>Number Operations</h1>
+<label for="numberInput">Enter a number:</label>
+<input type="number" id="numberInput" />
+<br />
+<button onclick="performOperation('factorial')">Factorial</button>
+<button onclick="performOperation('fibonacci')">Fibonacci Series</button>
+<button onclick="performOperation('primes')">Prime Numbers</button>
+<button onclick="performOperation('palindrome')">Check Palindrome</button>
+<div id="result" class="result"></div>
+</body>
+</html>
